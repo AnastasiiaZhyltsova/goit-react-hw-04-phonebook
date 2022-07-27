@@ -1,6 +1,7 @@
 import { useState } from 'react';
-// import { nanoid } from 'nanoid';
 import style from './Form.module.css';
+
+import { nanoid } from 'nanoid';
 
 function Form({ onSubmit }) {
   const [name, setName] = useState('');
@@ -8,29 +9,31 @@ function Form({ onSubmit }) {
 
   // берем данные value каждого input
   const handleChange = evt => {
-    evt.preventDefault();
-    const { name, value } = evt.target;
-
+    const { name, value } = evt.currentTarget;
     switch (name) {
       case 'name':
         setName(value);
         break;
-
       case 'number':
         setNumber(value);
         break;
-
       default:
-        return;
+        break;
     }
   };
   // сабмит формы
-  const handleSubmit = event => {
-    event.preventDefault();
-    onSubmit(name, number);
-    reset();
-  };
+  const handleSubmit = e => {
+    const contact = {
+      id: nanoid(),
+      name,
+      number,
+    };
 
+    e.preventDefault();
+    onSubmit(contact);
+    reset();
+    // console.log(this.state);
+  };
   // обновление полей инпутов после нажатия сабмит
   const reset = () => {
     setName('');
@@ -38,8 +41,8 @@ function Form({ onSubmit }) {
   };
 
   return (
-    <form>
-      <label className={style.label} onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      <label className={style.label}>
         <span>Name</span>
         <input
           type="text"
