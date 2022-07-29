@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
-  });
+  }, [contacts]);
 
   const formSubmitHandler = contact => {
     const normalzeName = contact.name.toLocaleLowerCase();

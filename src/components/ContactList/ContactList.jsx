@@ -1,31 +1,37 @@
-import React from "react";
-import style from "./ContactList.module.css"
-import PropTypes from "prop-types";
+import React from 'react';
+import style from './ContactList.module.css';
+import PropTypes from 'prop-types';
 
 const ContactList = ({ contacts, onDeleteContact }) => (
   <div>
     <ol className={style.contacts}>
-      {contacts.map(({id, name, number}) => (
-        <li key={id} className={style.contact} >
+      {contacts.map(({ id, name, number }) => (
+        <li key={id} className={style.contact}>
           <p className={style.name}>{name} :</p>
           <p className={style.number}>{number}</p>
 
           <button
             className={style.button}
             type="button"
-            onClick={() => onDeleteContact(id)}>
+            onClick={() => onDeleteContact(id)}
+          >
             Delete
           </button>
-        </li>        
+        </li>
       ))}
     </ol>
   </div>
 );
 
-
 export default ContactList;
 
 ContactList.propTypes = {
-  contacts: PropTypes.array.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
   onDeleteContact: PropTypes.func.isRequired,
-}
+};

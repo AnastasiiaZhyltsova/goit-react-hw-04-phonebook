@@ -2,6 +2,7 @@ import { useState } from 'react';
 import style from './Form.module.css';
 
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
 function Form({ onSubmit }) {
   const [name, setName] = useState('');
@@ -77,5 +78,7 @@ function Form({ onSubmit }) {
     </form>
   );
 }
-
+Form.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 export default Form;
